@@ -1,0 +1,172 @@
+1️⃣ Reusable Components & Props
+🔹 What Are Components?
+Components are the building blocks of a React app.
+They help reuse UI elements across different parts of the application.
+React supports functional components and class components (functional is preferred).
+🔹 What Are Props?
+Props (short for properties) allow data to be passed from a parent component to a child component.
+They are immutable (cannot be changed by the child component).
+Used for customization of components.
+🔹 Example of a Reusable Component (Button)
+jsx
+Copy
+Edit
+const Button = ({ label, onClick }) => {
+  return <button onClick={onClick}>{label}</button>;
+};
+export default Button;
+✅ Here, label and onClick are props that allow the button to be reusable.
+
+🔹 Key Takeaways
+Components should be modular, reusable, and maintainable.
+Props allow dynamic customization of components.
+2️⃣ Managing State & Event Handling
+🔹 What is State?
+State is a built-in React feature that stores data dynamically.
+When state changes, the component re-renders automatically.
+State is managed using the useState hook.
+🔹 Example: Counter with useState
+jsx
+Copy
+Edit
+const [count, setCount] = useState(0);
+
+<button onClick={() => setCount(count + 1)}>Increase</button>;
+count → Current state value.
+setCount → Function to update state.
+🔹 What is Event Handling?
+React uses synthetic events (like onClick, onChange) to handle user interactions.
+Events are written in camelCase (onClick instead of onclick).
+🔹 Example: Handling Input Change
+jsx
+Copy
+Edit
+const [name, setName] = useState("");
+
+<input value={name} onChange={(e) => setName(e.target.value)} />;
+✅ This ensures real-time updates to the state when the input changes.
+
+🔹 Key Takeaways
+State allows React components to store dynamic data.
+Event handlers allow interactions like clicks, input changes, etc.
+3️⃣ Fetching Data with useEffect
+🔹 What is useEffect?
+useEffect is a React hook used to perform side effects (e.g., API calls, subscriptions).
+It runs after the component renders.
+🔹 Syntax of useEffect
+jsx
+Copy
+Edit
+useEffect(() => {
+  // Side effect (e.g., fetch API)
+}, [dependencies]);
+If [dependencies] is empty, the effect runs only once when the component mounts.
+If a state or prop is included in [dependencies], the effect runs when that value changes.
+🔹 Example: Fetching Data from an API
+jsx
+Copy
+Edit
+const [data, setData] = useState([]);
+
+useEffect(() => {
+  fetch("https://api.example.com/data")
+    .then(res => res.json())
+    .then(data => setData(data));
+}, []);
+✅ Here, the API request runs only once when the component mounts.
+
+🔹 Key Takeaways
+useEffect handles API calls, timers, event listeners, etc.
+Dependencies control when the effect runs to avoid unnecessary calls.
+4️⃣ Handling Forms & Controlled Inputs
+🔹 What Are Controlled Inputs?
+A controlled input is an input field whose value is controlled by state in React.
+This ensures React has full control over form elements.
+🔹 Example: Handling Form Inputs
+jsx
+Copy
+Edit
+const [name, setName] = useState("");
+
+const handleSubmit = (e) => {
+  e.preventDefault(); // Prevent page refresh
+  alert(`Hello, ${name}!`);
+};
+
+<form onSubmit={handleSubmit}>
+  <input
+    type="text"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+  />
+  <button type="submit">Submit</button>
+</form>;
+✅ State (name) holds the input value, and React controls the form behavior.
+
+🔹 Why Use Controlled Inputs?
+Allows real-time state updates.
+Makes forms easier to manage.
+🔹 Key Takeaways
+Controlled inputs sync user input with state.
+Form submission is handled using onSubmit.
+5️⃣ React Router for Navigation
+🔹 What is React Router?
+React Router is a library that allows navigation between different pages without reloading.
+🔹 Setting Up React Router
+1️⃣ Install react-router-dom:
+
+sh
+Copy
+Edit
+npm install react-router-dom
+2️⃣ Import in App.js:
+
+jsx
+Copy
+Edit
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+3️⃣ Define Routes:
+
+jsx
+Copy
+Edit
+<Router>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/contact" element={<Contact />} />
+  </Routes>
+</Router>;
+✅ This sets up navigation between Home, About, and Contact pages.
+
+🔹 Adding a Navbar
+jsx
+Copy
+Edit
+import { Link } from "react-router-dom";
+
+const Navbar = () => (
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="/about">About</Link>
+    <Link to="/contact">Contact</Link>
+  </nav>
+);
+✅ <Link to="path"> helps navigate between pages without reloading.
+
+🔹 Handling 404 (Not Found) Pages
+jsx
+Copy
+Edit
+<Route path="*" element={<NotFound />} />
+✅ This catches all undefined routes and shows a custom 404 page.
+
+🔹 Key Takeaways
+React Router enables single-page navigation.
+Routes and Links help create a seamless user experience.
+🎯 Final Summary
+✅ Reusable Components & Props → Build modular UI with props for customization.
+✅ Managing State & Events → Use useState for dynamic data & handle user interactions.
+✅ Fetching Data (useEffect) → Perform API calls and side effects efficiently.
+✅ Handling Forms & Controlled Inputs → Manage input fields with state for full control.
+✅ React Router → Enable navigation between pages without reloading.
